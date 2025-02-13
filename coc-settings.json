@@ -1,0 +1,18 @@
+{
+  "languageserver": {
+      "golang": {
+        "command": "gopls",
+        "rootPatterns": ["go.mod"],
+        "filetypes": ["go"]
+      }
+  },
+
+  "yaml.schemas": {
+      "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json": ["/*-ci.yml"],
+      "kubernetes": ["/*.yaml","/*.yml"]
+  },
+
+  "snippets.ultisnips.enable": true,
+  "snippets.snipmate.enable": true
+
+}
