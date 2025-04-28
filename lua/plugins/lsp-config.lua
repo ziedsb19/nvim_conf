@@ -15,4 +15,5 @@ return {
       'folke/neodev.nvim',
     },
   },
+  { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
 }

@@ -1,3 +1,6 @@
 return {
-	{ 'HiPhish/rainbow-delimiters.nvim' }
+	{
+		enabled = true,
+		'HiPhish/rainbow-delimiters.nvim'
+	}
 }

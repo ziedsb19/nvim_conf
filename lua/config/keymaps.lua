@@ -7,7 +7,9 @@ vim.keymap.set("n", "<C-Right>", ":<C-U>TmuxNavigateRight<cr>", { desc = "Go to 
 
 -- [[ Basic Keymaps ]]
 
-vim.keymap.set('n', '<Tab>', '<c-w>w, { nnoremap = true }')
+-- vim.keymap.set('n', '<Tab>', '<c-w>w, { nnoremap = true }')
+
+vim.keymap.set("v", "<M-/>", '<Esc>/\\%V', { desc = "search inside block" })
 
 vim.keymap.set("n", "<c-a>", ':b#<cr>', { desc = "switch to last buffer" })
 
@@ -49,6 +51,16 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.keymap.set('n', '<leader>t', require('telescope-tabs').list_tabs, { desc = '[L]ist [T]abs' })
 vim.keymap.set('n', '<leader>y', require("telescope").load_extension("yaml_schema").yaml_schema,
   { desc = '[G]o [T]o [P]revious [T]ab' })
+vim.keymap.set("", "<leader>f", function()
+  require("conform").format({ async = true }, function(err)
+    if not err then
+      local mode = vim.api.nvim_get_mode().mode
+      if vim.startswith(string.lower(mode), "v") then
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+      end
+    end
+  end)
+end, { desc = "Format code" })
 
 
 local lspBuffKeymaps = {
@@ -68,6 +80,7 @@ local lspBuffKeymaps = {
 
   -- Lesser used LSP functionality
   { 'gD',         vim.lsp.buf.declaration,                                    '[G]oto [D]eclaration' },
+  { 'gR',         vim.lsp.buf.references,                                     '[G]oto [R]eferences in current buffer' },
   { '<leader>wa', vim.lsp.buf.add_workspace_folder,                           '[W]orkspace [A]dd Folder' },
   { '<leader>wr', vim.lsp.buf.remove_workspace_folder,                        '[W]orkspace [R]emove Folder' },
   { '<leader>wl', function()

@@ -34,4 +34,3 @@ require('lazy').setup(
 -- Setup neovim lua configuration
 require('neodev').setup()
 require('mini.surround').setup()
-

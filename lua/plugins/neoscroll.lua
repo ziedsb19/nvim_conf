@@ -1,7 +1,9 @@
 return {
-   {
-     "karb94/neoscroll.nvim",
-     opts = {},
-   }
+	{
+
+		enabled = true,
+		"karb94/neoscroll.nvim",
+		opts = {},
+	}
 
 }

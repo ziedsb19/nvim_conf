@@ -1,30 +1,22 @@
 local servers = require("utils.lspservers")
-local keymaps = require("config.keymaps")
-
-local on_attach = function(_, bufnr)
-  local nmap = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
-    end
-
-    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-  end
-  
-  for _,v in ipairs(keymaps.lspBuffKeymaps) do 
-    nmap(v[1], v[2], v[3])
-  end
-
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
-
-end
+local on_attach = require("utils.common")
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
 require('mason').setup()
 require('mason-lspconfig').setup()
+
+require('mason-tool-installer').setup({
+  -- Install these linters, formatters, debuggers automatically
+  ensure_installed = {
+    'java-debug-adapter',
+    'java-test',
+  },
+})
+
+-- There is an issue with mason-tools-installer running with VeryLazy, since it triggers on VimEnter which has already occurred prior to this plugin loading so we need to call install explicitly
+-- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim/issues/39
+vim.api.nvim_command('MasonToolsInstall')
 
 -- nvim-cmp supports additional completion capabilitieus, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -39,18 +31,18 @@ mason_lspconfig.setup {
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
-    }
+    if server_name ~= "jdtls" then
+      require('lspconfig')[server_name].setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = servers[server_name],
+        filetypes = (servers[server_name] or {}).filetypes,
+      }
+    end
   end,
 
 }
 
 
-local cfg = require("yaml-companion").setup({ })
+local cfg = require("yaml-companion").setup({})
 require("lspconfig")["yamlls"].setup(cfg)
-
-

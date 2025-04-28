@@ -1,5 +1,7 @@
 return {
 	{
+
+		enabled = true,
 		'echasnovski/mini.nvim',
 		version = false,
 		lazy = false,

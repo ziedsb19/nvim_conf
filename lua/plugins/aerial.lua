@@ -1,5 +1,7 @@
 return {
 	{
+
+		enabled = true,
 		"stevearc/aerial.nvim",
 		opts = {
 			-- optionally use on_attach to set keymaps when aerial has attached to a buffer
@@ -12,6 +14,8 @@ return {
 
 				vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>")
 			end,
+			disable_max_lines = 30000,
+			disable_max_size = 20000000,
 		},
 		-- Optional dependencies
 		dependencies = {

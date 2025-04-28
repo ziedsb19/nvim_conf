@@ -1,5 +1,7 @@
 return {
   {
+
+    enabled = true,
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
