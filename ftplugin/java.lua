@@ -33,7 +33,7 @@ local config = {
 	cmd = {
 		--
 		"/usr/lib/jvm/java-21-openjdk-amd64/bin/java", -- Or the absolute path '/path/to/java11_or_newer/bin/java'
-		"-agentlib:jdwp=transport=dt_socket,address=localhost:5005,server=y,suspend=n",
+		-- "-agentlib:jdwp=transport=dt_socket,address=localhost:5005,server=y,suspend=n",
 		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
 		"-Dosgi.bundles.defaultStartLevel=4",
 		"-Declipse.product=org.eclipse.jdt.ls.core.product",

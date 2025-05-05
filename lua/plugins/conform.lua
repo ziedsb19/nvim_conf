@@ -14,7 +14,9 @@ return {
 				-- Conform will run multiple formatters sequentially
 				go = { "goimports", "gofmt" },
 
-				xml = { "xmllint" }
+				xml = { "xmllint" },
+
+				java = { "google-java-format_linux" }
 			},
 			format_on_save = function(bufnr)
 				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then

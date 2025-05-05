@@ -12,6 +12,19 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 })
 
+
+vim.api.nvim_create_autocmd("BufNew", {
+	callback = function()
+		-- require('nvim-tree.api').tree.toggle({
+		-- 	find_file = true,
+		-- 	focus = false,
+		-- })
+	end,
+	group = highlight_group,
+	pattern = "*",
+})
+
+
 vim.api.nvim_create_user_command("LiveGrepGitRoot", uf.live_grep_git_root, {})
 vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
 vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})

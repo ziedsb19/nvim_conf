@@ -13,7 +13,7 @@ vim.keymap.set("v", "<M-/>", '<Esc>/\\%V', { desc = "search inside block" })
 
 vim.keymap.set("n", "<c-a>", ':b#<cr>', { desc = "switch to last buffer" })
 
-vim.keymap.set('n', '<c-n>', require('nvim-tree.api').tree.toggle, { desc = 'open tree' })
+-- vim.keymap.set('n', '<c-n>', require('nvim-tree.api').tree.toggle, { desc = 'open tree' })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
