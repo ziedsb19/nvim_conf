@@ -26,10 +26,10 @@ return { {
 
 			on_vim_enter = function(event)
 				--- Open the drawer on startup.
-				event.instance.open({
-					focus = false,
-				})
-
+				-- event.instance.open({
+				-- 	focus = false,
+				-- })
+				--
 				--- Example mapping to toggle.
 				vim.keymap.set('n', '<c-n>', function()
 					event.instance.focus_or_toggle()

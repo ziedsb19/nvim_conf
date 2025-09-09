@@ -166,5 +166,7 @@ return {
 		}
 
 		require("dap-go").setup()
+		require("dap-python").setup(
+		"/home/zied/.cache/pypoetry/virtualenvs/harlequin-7iRZJbFj-py3.12/bin/python")
 	end
 }
