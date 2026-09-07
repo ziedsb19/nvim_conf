@@ -168,4 +168,10 @@ return {
 			}
 		end
 	},
+	{
+		"github/copilot.vim",
+		init = function()
+			vim.g.copilot_npx_command = 0
+		end,
+	},
 }

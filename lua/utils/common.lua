@@ -10,6 +10,7 @@ local on_attach = function(_, bufnr)
   end
 
   for _, v in ipairs(keymaps.lspBuffKeymaps) do
+    vim.keymap.set('n', v[1], v[2], { desc = v[3] })
     nmap(v[1], v[2], v[3])
   end
 

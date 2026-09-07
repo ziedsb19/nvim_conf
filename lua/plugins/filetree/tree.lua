@@ -30,7 +30,12 @@ return {
         enable = false,
         git_ignored = false,
         dotfiles = false
-      }
+      },
+      update_focused_file = {
+        enable = true,
+        update_root = false,
+      },
+
     }
   },
 }

@@ -26,8 +26,8 @@ vim.api.nvim_create_autocmd("BufNew", {
 
 
 vim.api.nvim_create_user_command("LiveGrepGitRoot", uf.live_grep_git_root, {})
-vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
-vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
+vim.api.nvim_create_user_command('PeekOpen', function() require('peek').open() end, {})
+vim.api.nvim_create_user_command('PeekClose', function() require('peek').close() end, {})
 vim.api.nvim_create_user_command("FormatDisable", function(args)
 	if args.bang then
 		-- FormatDisable! will disable formatting just for this buffer

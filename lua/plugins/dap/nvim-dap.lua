@@ -3,6 +3,7 @@ return {
 	-- https://github.com/rcarriga/nvim-dap-ui
 	'rcarriga/nvim-dap-ui',
 	event = 'VeryLazy',
+	enabled = false,
 	dependencies = {
 		-- https://github.com/mfussenegger/nvim-dap
 		'mfussenegger/nvim-dap',
@@ -106,45 +107,45 @@ return {
 		vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'DiagnosticSignInfo', linehl = '', numhl = '' })
 
 		dap.listeners.after.event_initialized["dapui_config"] = function()
-			require('dapui').open()
+			-- require('dapui').open()
 		end
 
 		dap.listeners.before.event_terminated["dapui_config"] = function()
 			-- Commented to prevent DAP UI from closing when unit tests finish
-			require('dapui').close()
+			-- require('dapui').close()
 		end
 
 		dap.listeners.before.event_exited["dapui_config"] = function()
 			-- Commented to prevent DAP UI from closing when unit tests finish
-			require('dapui').close()
+			-- require('dapui').close()
 		end
 
 		-- Add dap configurations based on your language/adapter settings
 		-- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
 		dap.configurations.java = {
+			-- {
+			-- 	name = "Debug Launch (2GB)",
+			-- 	type = 'java',
+			-- 	request = 'launch',
+			-- 	vmArgs = "" ..
+			-- 	    "-Xmx2g "
+			-- },
+			-- {
+			-- 	name = "Debug Attach (8000)",
+			-- 	type = 'java',
+			-- 	request = 'attach',
+			-- 	hostName = "127.0.0.1",
+			-- 	port = 8000,
+			-- },
+			-- {
+			-- 	name = "Debug Attach (5005)",
+			-- 	type = 'java',
+			-- 	request = 'attach',
+			-- 	hostName = "127.0.0.1",
+			-- 	port = 5005,
+			-- },
 			{
-				name = "Debug Launch (2GB)",
-				type = 'java',
-				request = 'launch',
-				vmArgs = "" ..
-				    "-Xmx2g "
-			},
-			{
-				name = "Debug Attach (8000)",
-				type = 'java',
-				request = 'attach',
-				hostName = "127.0.0.1",
-				port = 8000,
-			},
-			{
-				name = "Debug Attach (5005)",
-				type = 'java',
-				request = 'attach',
-				hostName = "127.0.0.1",
-				port = 5005,
-			},
-			{
-				name = "My Custom Java Run Configuration",
+				name = "Dev -server",
 				type = "java",
 				request = "launch",
 				-- You need to extend the classPath to list your dependencies.
@@ -152,21 +153,74 @@ return {
 				-- classPaths = {},
 
 				-- If using multi-module projects, remove otherwise.
-				-- projectName = "yourProjectName",
+				projectName = "datahub-app-client",
 
-				-- javaExec = "java",
-				mainClass = "replace.with.your.fully.qualified.MainClass",
+				javaExec = "java",
+				mainClass = "lib.main.Server",
+
+				args =
+				"-export //localhost:8010/SmartServer -db /nxdh/conf/database.cfg -loglevel EFWIT -nodbchk -v /nxdh/conf/verbose.cfg -log NONE",
 
 				-- If using the JDK9+ module system, this needs to be extended
 				-- `nvim-jdtls` would automatically populate this property
 				-- modulePaths = {},
 				vmArgs = "" ..
-				    "-Xmx2g "
+				    "-server -Xmx2G -Xms512M -Djava.locale.providers=COMPAT,CLDR  -Dfile.encoding=UTF-8 --add-opens java.base/java.nio=ALL-UNNAMED"
 			},
+			{
+				name = "Dev -server 1 (elastic cluster)",
+				type = "java",
+				request = "launch",
+				projectName = "datahub-app-client",
+				javaExec = "java",
+				mainClass = "lib.main.Server",
+				args =
+				"-export //localhost:8010/SmartServer -db /nxdh/conf/database.cfg -loglevel EFWIT -nodbchk -v /nxdh/conf/verbose.cfg -log NONE -elasticcluster /nxdh/conf/cluster.cfg -P SERVER_SMART_0",
+				vmArgs = "" ..
+				    "-server -Xmx2G -Xms512M -Djava.locale.providers=COMPAT,CLDR  -Dfile.encoding=UTF-8 --add-opens java.base/java.nio=ALL-UNNAMED"
+			},
+			{
+				name = "Dev -server 2 (elastic cluster)",
+				type = "java",
+				request = "launch",
+				projectName = "datahub-app-client",
+				javaExec = "java",
+				mainClass = "lib.main.Server",
+				args =
+				"-export //localhost:9010/SmartServer -db /nxdh/conf/database.cfg -loglevel EFWIT -nodbchk -v /nxdh/conf/verbose.cfg -log NONE -elasticcluster /nxdh/conf/cluster.cfg -P SERVER_SMART_1",
+				vmArgs = "" ..
+				    "-server -Xmx2G -Xms512M -Djava.locale.providers=COMPAT,CLDR  -Dfile.encoding=UTF-8 --add-opens java.base/java.nio=ALL-UNNAMED"
+			},
+			{
+				name = "Dev -sheduler 1 (elastic cluster)",
+				type = "java",
+				request = "launch",
+				projectName = "datahub-app-client",
+				javaExec = "java",
+				mainClass = "lib.main.Run",
+				console = "integratedTerminal",
+				args =
+				"-user Scheduler -P SCHEDULER_SMART_0 -daemon scheduler -log NONE -loglevel EFWIT -v /nxdh/conf/verbose.cfg -network /nxdh/conf/network.cfg -cluster SERVER_SMART_0=//localhost:9010/SmartServer; -clustermode -P SCHEDULER_SMART_0 -terminationPeriod 1800 -terminationMarkPath /tmp -multiprocess /nxdh/conf/multiprocess.cfg",
+				vmArgs = "" ..
+				    "-server -Xmx2G -Xms512M -Djava.locale.providers=COMPAT,CLDR  -Dfile.encoding=UTF-8 --add-opens java.base/java.nio=ALL-UNNAMED"
+			},
+			{
+				name = "Dev -sheduler 1 (multiprocess cloud)",
+				type = "java",
+				request = "launch",
+				projectName = "datahub-app-client",
+				javaExec = "java",
+				mainClass = "lib.main.Run",
+				console = "integratedTerminal",
+				args =
+				"-user Scheduler -P SCHEDULER_SMART_0 -daemon scheduler -log NONE -loglevel EFWIT -v /nxdh/conf/verbose.cfg -network /nxdh/conf/network.cfg -cluster SERVER_SMART_0=//10.1.1.194:9010/SmartServer; -clustermode -P SCHEDULER_SMART_0 -terminationPeriod 1800 -terminationMarkPath /tmp -multiprocess /nxdh/conf/multiprocess.cfg",
+				vmArgs = "" ..
+				    "-server -Xmx2G -Xms512M -Djava.locale.providers=COMPAT,CLDR  -Dfile.encoding=UTF-8 --add-opens java.base/java.nio=ALL-UNNAMED"
+			}
 		}
 
 		require("dap-go").setup()
 		require("dap-python").setup(
-		"/home/zied/.cache/pypoetry/virtualenvs/harlequin-7iRZJbFj-py3.12/bin/python")
+			"/home/zied/.cache/pypoetry/virtualenvs/harlequin-7iRZJbFj-py3.12/bin/python")
 	end
 }

@@ -24,13 +24,23 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup(
   {
     spec = {
-      -- import/override with your plugins
-      { import = "plugins" },
-
+      { import = "plugins.navigation" },
+      { import = "plugins.filetree" },
+      { import = "plugins.fuzzy" },
+      { import = "plugins.completion" },
+      { import = "plugins.lsp" },
+      { import = "plugins.formatting" },
+      { import = "plugins.syntax" },
+      { import = "plugins.git" },
+      { import = "plugins.dap" },
+      { import = "plugins.ui" },
+      { import = "plugins.code" },
+      { import = "plugins.languages" },
+      { import = "plugins.notebook" },
+      { import = "plugins.session" },
+      { import = "plugins.performance" },
+      { import = "plugins.markdown" },
     },
   }
 )
 
--- Setup neovim lua configuration
-require('neodev').setup()
-require('mini.surround').setup()
