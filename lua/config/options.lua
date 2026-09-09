@@ -89,3 +89,4 @@ vim.filetype.add({
 	},
 })
 
+vim.g.copilot_enabled = false

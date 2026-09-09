@@ -1,9 +1,8 @@
 -- Move to window using the <ctrl> hjkl keys
--- vim.keymap.set("n", "<C-Left>", ":<C-U>TmuxNavigateLeft<cr>", { desc = "Go to Left Window", remap = true })
--- vim.keymap.set("n", "<C-Down>", ":<C-U>TmuxNavigateDown<cr>", { desc = "Go to Lower Window", remap = true })
--- vim.keymap.set("n", "<C-Up>", ":<C-U>TmuxNavigateUp<cr>", { desc = "Go to Upper Window", remap = true })
--- vim.keymap.set("n", "<C-Right>", ":<C-U>TmuxNavigateRight<cr>", { desc = "Go to Right Window", remap = true })
-
+vim.keymap.set("n", "<C-Left>", ":<C-U>TmuxNavigateLeft<cr>", { desc = "Go to Left Window", remap = true })
+vim.keymap.set("n", "<C-Down>", ":<C-U>TmuxNavigateDown<cr>", { desc = "Go to Lower Window", remap = true })
+vim.keymap.set("n", "<C-Up>", ":<C-U>TmuxNavigateUp<cr>", { desc = "Go to Upper Window", remap = true })
+vim.keymap.set("n", "<C-Right>", ":<C-U>TmuxNavigateRight<cr>", { desc = "Go to Right Window", remap = true })
 
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
